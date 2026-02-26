@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+*.db
 
 # Virtualenv
 .venv/
@@ -12,3 +13,14 @@ venv/
 
 # Local test data
 testdata/
+
+# Frontend
+node_modules/
+.next/
+dist/
+build/
+.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*

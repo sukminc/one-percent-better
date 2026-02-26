@@ -1,83 +1,63 @@
-# one-percent-better
-
-Minimal scaffold for the Action Tracker project.
-
-This repository contains a small backend service (FastAPI) for parsing poker
-hand histories and running tests. Local hand-history exports should be kept
-outside the repository (use `testdata/` locally and keep it in `.gitignore`).
-
-Quick start (backend):
-
-```bash
-cd backend
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
 # Action Tracker: The 1% Dashboard
+
+A specialized poker analytics platform designed to transform raw GGPoker hand history logs into actionable behavioral insights. The goal is to facilitate a "1% better every day" growth trajectory by comparing current play against historical data with high-fidelity HUD statistics.
 
 ## Project Vision
-A specialized poker analytics platform designed to transform raw hand history logs into actionable behavioral insights. The goal is to facilitate a "1% better every day" growth trajectory by comparing current play against historical data.
+To provide a modern, industrial-grade dashboard for poker players to identify leaks, analyze positional performance, and track growth over time.
 
-The repo is structured as a monorepo:
+## Key Features
+- **Modern Dashboard**: High-fidelity UI with glassmorphism and smooth animations.
+- **Drag & Drop Ingestion**: Dropbox-style hand history upload system.
+- **Hero-Specific HUD**: VPIP, PFR, 3-Bet, C-Bet, Aggression Factor (AF), and Showdown stats (WTSD, W$SD).
+- **Positional Intelligence**: Deep dive into performance across all table seats (Button, Blinds, UTG/MP/CO).
+- **Data Visualization**: Interactive bar charts and radar matrices for behavioral analysis.
 
-```
-backend/          # FastAPI service for parsing and analysis
-  app/
-    main.py       # entrypoint
-    parser.py     # hand-history parsing logic
-    models.py     # pydantic models
-  requirements.txt
-frontend/         # (to be added) React/Next.js dashboard
-```
+## Tech Stack
+- **Frontend**: Next.js, TypeScript, Tailwind CSS, Framer Motion, Recharts, Lucide React.
+- **Backend**: FastAPI (Python), SQLAlchemy, SQLite, Pydantic.
+- **Parser**: Custom regex-based state-tracking engine for GGPoker logs.
 
-Basic startup steps (backend):
+## Quick Start
 
-1. `cd backend`
-2. `python -m venv .venv && source .venv/bin/activate`
-3. `pip install -r requirements.txt`
-4. `uvicorn app.main:app --reload`
-
-A SQLite database (`action_tracker.db` by default) will be created automatically in the backend directory when the server starts.  
-`POST /upload-log/` accepts a text file, parses it into hands, saves each hand row, and returns the count + generated IDs.
-
-
-### Testing
-
-Run backend unit tests with `pytest` from the `backend/` folder.  Sample tests cover the parser and CRUD helpers.
-
-
-# Action Tracker: The 1% Dashboard
-
-This repository holds a small FastAPI backend and parsing tools to turn raw GGPoker hand-history logs
-into structured records for analytics.
-
-Repo layout (local):
-
-- `backend/` — FastAPI service, parser, models, and tests
-- `testdata/` — (ignored) local hand-history fixtures for development
-
-Quick start (backend):
-
+### Backend (API)
 ```bash
 cd backend
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
+The API will be available at `http://localhost:8000`.
 
-Run tests:
-
+### Frontend (UI)
 ```bash
-cd backend
-PYTHONPATH=. pytest -q
+cd frontend
+npm install
+npm run dev
+```
+The dashboard will be available at `http://localhost:3000`.
+
+## Directory Structure
+```
+backend/          # FastAPI service, parser, and analytics
+  app/
+    main.py       # API entrypoint & routes
+    parser.py     # GGPoker log parsing logic
+    analytics.py  # HUD stat calculation engine
+    db.py         # SQLAlchemy models & DB config
+    models.py     # Pydantic schemas
+  tests/          # Unit and integration tests
+frontend/         # Next.js React dashboard
+  pages/          # UI routes and components
+testdata/         # (Git ignored) Local hand-history logs for testing
 ```
 
-Notes:
+## Testing
+Run backend tests:
+```bash
+cd backend
+PYTHONPATH=. pytest
+```
 
-- Local raw hand-history exports should live in `testdata/` (this folder is ignored by git).
-- CI runs are configured via `.github/workflows/python-tests.yml` to run the backend tests on push/PR.
-
-If you want a different README text or more detail, tell me what to include and I'll update it.
+---
+© 2026 ONE PERCENT BETTER. All rights reserved.
